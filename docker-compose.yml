@@ -1,7 +1,8 @@
 version: '3'
 
 services:
-  database1:
+  omdbapi_db:
+    container_name: omdbapi_db
     image: postgres:10
     volumes:
       - database1_volume:/var/lib/postgresql/data
@@ -11,6 +12,7 @@ services:
       - database1_network
 
   omdbapi:
+    container_name: omdbapi
     build: .
     environment:
       - DJANGO_SETTINGS_MODULE
@@ -22,9 +24,10 @@ services:
       - database1_network
       - nginx_network
     depends_on:
-      - database1
+      - omdbapi_db
 
-  nginx:
+  omdbapi_nginx:
+    container_name: omdbapi_nginx
     image: nginx:1.13
     ports:
       - 80:80
