@@ -77,7 +77,6 @@ def build(conn):
     os.mkdir(BUILD_PATH)
     shutil.copytree(SOURCE_PATH, os.path.join(BUILD_PATH, SOURCE_FOLDER))
     shutil.copy(os.path.join(BASE_PATH, 'Pipfile'), os.path.join(BUILD_PATH, 'Pipfile'))
-    shutil.copy(os.path.join(BASE_PATH, 'wsgi.py'), os.path.join(BUILD_PATH, 'wsgi.py'))
     shutil.copy(os.path.join(BASE_PATH, 'Pipfile.lock'), os.path.join(BUILD_PATH, 'Pipfile.lock'))
     shutil.copy(os.path.join(BASE_PATH, DOCKER_COMPOSE_FILE), os.path.join(BUILD_PATH, DOCKER_COMPOSE_FILE))
     shutil.copytree(os.path.join(BASE_PATH, "config"), os.path.join(BUILD_PATH, "config"))
