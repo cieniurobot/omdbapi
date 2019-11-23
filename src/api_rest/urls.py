@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
 urlpatterns = [
-    url(r'^search/^$', views.SearchView.as_view()),
+    url(r'^movie/$', views.MovieSearchView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
