@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from datetime import timedelta
@@ -156,10 +157,15 @@ LOGGING = {
             'filename': 'log.json',
             'formatter': 'json',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['json_file'],
+            'handlers': ['json_file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
         },
