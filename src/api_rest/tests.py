@@ -42,27 +42,26 @@ class OmdbProviderTestCase(TestCase):
     @mock.patch('requests.get', side_effect=mocked_search_requests_get)
     def test_search_movie(self, mock_get):
         found_movie_expected_response = {
-            "Search": [
+            "search": [
                 {
-                    "Title": "Star Wars: Episode IV - A New Hope",
-                    "Year": "1977",
-                    "imdbID": "tt0076759",
-                    "Type": "movie",
-                    "Poster": "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+                    "title": "Star Wars: Episode IV - A New Hope",
+                    "year": "1977",
+                    "imdb_id": "tt0076759",
+                    "type": "movie",
+                    "poster": "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
                 }
             ],
-            "Response": "True",
-            "totalResults": "1"
+            "response": "True",
+            "total_results": 1
         }
         not_found_movie_expected_response = {
-            "Response": "False",
-            "Error": "Movie not found!"
+            "message": "Movie not found!"
         }
 
         omdb_provider = OmdbProvider()
 
         found_movie_response = omdb_provider.search_movie('star wars')
-        self.assertEqual(found_movie_response, found_movie_expected_response)
+        self.assertEqual(json.dumps(found_movie_response['search']), json.dumps(found_movie_expected_response['search']))
 
         not_found_movie_response = omdb_provider.search_movie('bladerunner')
         self.assertEqual(not_found_movie_response, not_found_movie_expected_response)
