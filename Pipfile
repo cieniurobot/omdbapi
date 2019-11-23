@@ -15,6 +15,7 @@ ujson = "*"
 django-log-formatter-json = "*"
 requests = "*"
 retrying = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 ipython = "*"
