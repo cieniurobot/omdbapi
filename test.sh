@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # pylint
-pylint --rcfile .pylintrc src/api/
+pylint --rcfile .pylintrc src/api_rest/
 
 
 #pytest
