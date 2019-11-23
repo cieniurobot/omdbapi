@@ -109,3 +109,6 @@ venv.bak/
 
 
 # End of https://www.gitignore.io/api/python
+
+src/log.json
+src/db.sqlite3
