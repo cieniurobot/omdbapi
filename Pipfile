@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+Django = "*"
+"psycopg2-binary" = "*"
+gunicorn = "*"
+djangorestframework = "==3.9.2"
+coreapi = "*"
+pyyaml = "*"
+django-filter = "*"
+ujson = "*"
+django-log-formatter-json = "*"
+
+
+[dev-packages]
+ipython = "*"
+fabric = "==2.4"
+coverage = "*"
+
+[requires]
+python_version = "3.6"
