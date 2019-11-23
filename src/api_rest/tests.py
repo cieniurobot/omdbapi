@@ -29,9 +29,9 @@ def mocked_search_requests_get(*args, **kwargs):
         "Error": "Movie not found!"
     }
 
-    if args[0] == f'{OmdbProvider.search_url}star wars':
+    if args[0] == f'{OmdbProvider.search_url}&s=star wars&page=1':
         return MockResponse(movie_exists_response, 200)
-    elif args[0] == f'{OmdbProvider.search_url}bladerunner':
+    elif args[0] == f'{OmdbProvider.search_url}&s=bladerunner&page=1':
         return MockResponse(movie_not_found_response, 200)
 
     return MockResponse(None, 404)
@@ -67,5 +67,5 @@ class OmdbProviderTestCase(TestCase):
         not_found_movie_response = omdb_provider.search_movie('bladerunner')
         self.assertEqual(not_found_movie_response, not_found_movie_expected_response)
 
-        self.assertIn(mock.call(f'{OmdbProvider.search_url}star wars'), mock_get.call_args_list)
+        self.assertIn(mock.call(f'{OmdbProvider.search_url}&s=star wars&page=1'), mock_get.call_args_list)
         self.assertEqual(len(mock_get.call_args_list), 2)
