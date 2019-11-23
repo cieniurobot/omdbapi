@@ -173,3 +173,5 @@ LOGGING = {
         },
     },
 }
+OMDB_HOST = "http://www.omdbapi.com/"
+OMDB_API_KEY = "872f4254"
