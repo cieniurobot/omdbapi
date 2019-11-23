@@ -25,8 +25,6 @@ class MovieSearchView(APIView):
 
     def get(self, request, *args, **kwargs):
         search = request.GET.get('search', None)
-        logger.info('search:')
-        logger.info(search)
         if search is None:
             return Response(
                 {"message": "Please type search value(search=movie name)!"},
