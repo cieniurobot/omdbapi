@@ -1,0 +1,150 @@
+{
+	"variables": [],
+	"info": {
+		"name": "OMDb api",
+		"_postman_id": "94a4658e-0d11-3a04-6bd3-a6fe6287ca06",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local",
+			"description": "",
+			"item": [
+				{
+					"name": "localhost:8000/docs",
+					"request": {
+						"url": "localhost:8000/docs",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/movie?s=star wars&page=2",
+					"request": {
+						"url": {
+							"raw": "localhost:8000/api/v1/movie?search=star wars&page=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"movie"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "star wars",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0NTg0MzQyLCJqdGkiOiJmYjAyYTA4NDRlZjU0OWI2YTk5YWQ3MzcwNTdkNjcxYiIsInVzZXJfaWQiOjF9.uLG3pSaecqptiHBV1KVzqkX8WZPFDD3DA-dMQBNSzsY",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/token/",
+					"request": {
+						"url": "localhost:8000/api/token/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/user-favourite-movie/",
+					"request": {
+						"url": "localhost:8000/api/v1/my-user-favourite-movie/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0NTk5NzgxLCJqdGkiOiJmYmJhYzNjYzE2YmY0MWY1ODg5ZmZhYTU1YTFhNGRkOCIsInVzZXJfaWQiOjF9.ioN7e7Vp7Vm3JBo_me2XYFpKj2ipFu4k2xwXtbTWwII",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Star Wars: Episode VI - Return of the Jedi\",\n    \"year\": \"1983\",\n    \"imdb_id\": \"tt0086190\",\n    \"type\": \"movie\",\n    \"poster\": \"https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/my-user-favourite-movie/",
+					"request": {
+						"url": "localhost:8000/api/v1/my-user-favourite-movie/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0NTk5NzgxLCJqdGkiOiJmYmJhYzNjYzE2YmY0MWY1ODg5ZmZhYTU1YTFhNGRkOCIsInVzZXJfaWQiOjF9.ioN7e7Vp7Vm3JBo_me2XYFpKj2ipFu4k2xwXtbTWwII",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8000/api/v1/my-user-favourite-movie/7",
+					"request": {
+						"url": "localhost:8000/api/v1/my-user-favourite-movie/7",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0NTk5NzgxLCJqdGkiOiJmYmJhYzNjYzE2YmY0MWY1ODg5ZmZhYTU1YTFhNGRkOCIsInVzZXJfaWQiOjF9.ioN7e7Vp7Vm3JBo_me2XYFpKj2ipFu4k2xwXtbTWwII",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

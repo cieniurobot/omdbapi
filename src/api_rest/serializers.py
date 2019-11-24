@@ -1,7 +1,9 @@
 import logging
+
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from api_rest.models import Favourite
+from api_rest.models import UserFavouriteMovie
 
 logger = logging.getLogger('django')
 
@@ -17,23 +19,27 @@ class OmdbMovieSerializer(serializers.Serializer):
 class OmdbMovieSearchResponseSerializer(serializers.Serializer):
     search = OmdbMovieSerializer(many=True, required=True)
     total_results = serializers.IntegerField()
+    page = serializers.IntegerField()
     response = serializers.BooleanField()
 
 
-class FavouriteSerializer(serializers.ModelSerializer):
+class UserFavouriteMovieSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=True)
+
     class Meta:
-        model = Favourite
-        fields = '__all__'
+        model = UserFavouriteMovie
+        fields = (
+            'id',
+            'title',
+            'year',
+            'imdb_id',
+            'type',
+            'poster',
+            'user',
+        )
 
     def create(self, validated_data):
-        favourite = Favourite()
-        favourite.title = validated_data.get('title')
-        favourite.year = validated_data.get('year')
-        favourite.imdb_id = validated_data.get('imdb_id')
-        favourite.type = validated_data.get('type')
-        favourite.poster = validated_data.get('poster')
-        favourite.save()
-        return favourite
+        return UserFavouriteMovie.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title")

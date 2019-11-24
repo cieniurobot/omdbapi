@@ -5,23 +5,26 @@ services:
     container_name: omdbapi_db
     image: postgres:10
     volumes:
-      - database1_volume:/var/lib/postgresql/data
-    env_file:
-      - config/db/database1_env
+      - omdbapi_db_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=omdbapi_db
+      - POSTGRES_PASSWORD=omdbbapipass
+      - POSTGRES_DB=omdbapi_db
     networks:
-      - database1_network
+      - omdbapi_db_network
 
   omdbapi:
     container_name: omdbapi
     build: .
     environment:
       - DJANGO_SETTINGS_MODULE
+      - DB_HOST=omdbapi_db
     volumes:
       - .:/opt/omdbapi/src
       - static:/opt/omdbapi/static
       - media:/opt/omdbapi/media
     networks:
-      - database1_network
+      - omdbapi_db_network
       - nginx_network
     depends_on:
       - omdbapi_db
@@ -41,12 +44,12 @@ services:
       - omdbapi
 
 networks:
-  database1_network:
+  omdbapi_db_network:
     driver: bridge
   nginx_network:
     driver: bridge
 
 volumes:
-  database1_volume:
+  omdbapi_db_volume:
   static:
   media:
