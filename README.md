@@ -9,19 +9,33 @@ Movie database.
 - pipenv
 
 
+
+## Usage 
+All api routes are in OMDb api.postman_collection.json. You can import file to postman.
+
+Install locally:
+
+Setup settings.py and run commands:
+```bash
+$ pipenv install
+$ python src/manage.py migrate
+$ python src/manage.py runserver
+```
+
 Run build in docker:
 ```bash
 $ fab build && docker-compose -f build/docker-compose.yml up --build --force-recreate
+```
+
+Create superuser in docker build:
+```bash
+docker-compose -f build/docker-compose.yml exec omdbapi python src/manage.py createsuperuser
 ```
 
 Deploy to server by ssh:
 ```bash
 $ fab deploy --hosts <here host which is configured in ~/.ssh/config>
 ```
-
-## Usage 
-All api routes are in OMDb api.postman_collection.json. You can import file to postman.
-
 Get token:
 ```
 POST /api/token/ HTTP/1.1
