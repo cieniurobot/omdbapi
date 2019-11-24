@@ -1,3 +1,0 @@
-POSTGRES_USER=database1_omdbapi
-POSTGRES_PASSWORD=omdbbapipass
-POSTGRES_DB=database1
