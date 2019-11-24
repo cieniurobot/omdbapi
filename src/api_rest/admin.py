@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from api_rest.models import Favourite
+from api_rest.models import UserFavouriteMovie
 
-admin.site.register(Favourite)
+admin.site.register(UserFavouriteMovie)
