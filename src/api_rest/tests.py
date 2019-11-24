@@ -29,6 +29,20 @@ def mocked_search_requests_get(*args, **kwargs):
         "totalResults": "1"
     }
 
+    movie_exists_page2_response = {
+        "Search": [
+            {
+                "Title": "Robot Chicken: Star Wars III",
+                "Year": "2010",
+                "imdbID": "tt1691338",
+                "Type": "movie",
+                "Poster": "https://m.media-amazon.com/images/M/MV5BMjAyNTYzODM3OF5BMl5BanBnXkFtZTcwMTY4ODM4NA@@._V1_SX300.jpg"
+            }
+        ],
+        "Response": "True",
+        "totalResults": "1"
+    }
+
     movie_not_found_response = {
         "Response": "False",
         "Error": "Movie not found!"
@@ -36,6 +50,8 @@ def mocked_search_requests_get(*args, **kwargs):
 
     if args[0] == f'{OmdbProvider.search_url}&s=star wars&page=1':
         return MockResponse(movie_exists_response, 200)
+    if args[0] == f'{OmdbProvider.search_url}&s=star wars&page=2':
+        return MockResponse(movie_exists_page2_response, 200)
     elif args[0] == f'{OmdbProvider.search_url}&s=bladerunner&page=1':
         return MockResponse(movie_not_found_response, 200)
 
@@ -57,23 +73,43 @@ class OmdbProviderTestCase(TestCase):
                 }
             ],
             "response": "True",
-            "total_results": 1
+            "total_results": 1,
+            "page": 1,
         }
         not_found_movie_expected_response = {
             "message": "Movie not found!"
         }
-
+        found_movie_expected_response_page2 = {
+            "search": [
+                {
+                    "title": "Robot Chicken: Star Wars III",
+                    "year": "2010",
+                    "imdb_id": "tt1691338",
+                    "type": "movie",
+                    "poster": "https://m.media-amazon.com/images/M/MV5BMjAyNTYzODM3OF5BMl5BanBnXkFtZTcwMTY4ODM4NA@@._V1_SX300.jpg"
+                }
+            ],
+            "response": "True",
+            "total_results": 190900909,
+            "page": 2,
+        }
         omdb_provider = OmdbProvider()
 
-        found_movie_response = omdb_provider.search_movie('star wars')
+        found_movie_response = omdb_provider.search_movie('star wars', 1)
         self.assertEqual(json.dumps(found_movie_response['search']),
                          json.dumps(found_movie_expected_response['search']))
+
+        found_movie_page2_response = omdb_provider.search_movie('star wars', 2)
+        self.assertEqual(json.dumps(found_movie_page2_response['search']),
+                         json.dumps(found_movie_expected_response_page2['search']))
 
         not_found_movie_response = omdb_provider.search_movie('bladerunner')
         self.assertEqual(not_found_movie_response, not_found_movie_expected_response)
 
         self.assertIn(mock.call(f'{OmdbProvider.search_url}&s=star wars&page=1'), mock_get.call_args_list)
-        self.assertEqual(len(mock_get.call_args_list), 2)
+        self.assertIn(mock.call(f'{OmdbProvider.search_url}&s=star wars&page=2'), mock_get.call_args_list)
+        self.assertIn(mock.call(f'{OmdbProvider.search_url}&s=bladerunner&page=1'), mock_get.call_args_list)
+        self.assertEqual(len(mock_get.call_args_list), 3)
 
 
 class MovieSearchViewAPITestCase(TestCase):

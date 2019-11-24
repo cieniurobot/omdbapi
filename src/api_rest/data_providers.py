@@ -28,11 +28,12 @@ class OmdbProvider:
 
         return mapped_movies
 
-    def map_response(self, response):
+    def map_response(self, response, page):
         response['search'] = self.map_movies(response.pop('Search', []))
         response['total_results'] = int(response.pop('totalResults', 0))
         res = response.pop('Response', 'False')
         response['response'] = True if res == 'True' else False
+        response['page'] = page
         return response
 
     @retry(wait_fixed=200, stop_max_attempt_number=2)
@@ -51,7 +52,7 @@ class OmdbProvider:
             if err:
                 return None
 
-            mapped_resp = self.map_response(resp_obj)
+            mapped_resp = self.map_response(resp_obj, page)
             serializer = OmdbMovieSearchResponseSerializer(data=mapped_resp)
             if not serializer.is_valid():
                 self.logger.error(f'Serialization error! Errors: {json.dumps(serializer.errors)}')

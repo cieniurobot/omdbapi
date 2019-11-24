@@ -33,7 +33,7 @@ class MovieSearchView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        page = kwargs.get('page', 1)
+        page = request.GET.get('page', 1)
         movie_data = self.omdb_provider.search_movie(search, page)
         if movie_data is None:
             return Response(

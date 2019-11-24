@@ -22,6 +22,10 @@ $ python src/manage.py migrate
 $ python src/manage.py runserver
 ```
 
+Run tests:
+```bash
+$ ./test.sh
+```
 Run build in docker:
 ```bash
 $ fab build && docker-compose -f build/docker-compose.yml up --build --force-recreate

@@ -19,6 +19,7 @@ class OmdbMovieSerializer(serializers.Serializer):
 class OmdbMovieSearchResponseSerializer(serializers.Serializer):
     search = OmdbMovieSerializer(many=True, required=True)
     total_results = serializers.IntegerField()
+    page = serializers.IntegerField()
     response = serializers.BooleanField()
 
 
