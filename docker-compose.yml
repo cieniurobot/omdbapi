@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  omdbapi_db:
+    container_name: omdbapi_db
+    image: postgres:10
+    volumes:
+      - omdbapi_db_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=omdbapi_db
+      - POSTGRES_PASSWORD=omdbbapipass
+      - POSTGRES_DB=omdbapi_db
+    networks:
+      - omdbapi_db_network
+
+  omdbapi:
+    container_name: omdbapi
+    build: .
+    environment:
+      - DJANGO_SETTINGS_MODULE
+      - DB_HOST=omdbapi_db
+    volumes:
+      - .:/opt/omdbapi/src
+      - static:/opt/omdbapi/static
+      - media:/opt/omdbapi/media
+    networks:
+      - omdbapi_db_network
+      - nginx_network
+    depends_on:
+      - omdbapi_db
+
+  omdbapi_nginx:
+    container_name: omdbapi_nginx
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/opt/omdbapi/static
+      - media:/opt/omdbapi/media
+    networks:
+      - nginx_network
+    depends_on:
+      - omdbapi
+
+networks:
+  omdbapi_db_network:
+    driver: bridge
+  nginx_network:
+    driver: bridge
+
+volumes:
+  omdbapi_db_volume:
+  static:
+  media:
